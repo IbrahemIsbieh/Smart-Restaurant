@@ -1,0 +1,145 @@
+<odoo>
+    <record id="restaurant_order_view_list" model="ir.ui.view">
+        <field name="name">restaurant.order.list</field>
+        <field name="model">restaurant.order</field>
+        <field name="arch" type="xml">
+            <list string="Restaurant Orders"
+                  decoration-muted="state == 'cancelled'"
+                  decoration-success="state == 'served'"
+                  decoration-info="state == 'ready'">
+                <field name="name"/>
+                <field name="date_order"/>
+                <field name="order_type"/>
+                <field name="partner_id"/>
+                <field name="table_id"/>
+                <field name="amount_total"/>
+                <field name="amount_paid"/>
+                <field name="amount_due"/>
+                <field name="state"/>
+                <field name="user_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="restaurant_order_view_form" model="ir.ui.view">
+        <field name="name">restaurant.order.form</field>
+        <field name="model">restaurant.order</field>
+        <field name="arch" type="xml">
+            <form string="Restaurant Order">
+                <header>
+                    <button name="action_confirm"
+                            type="object"
+                            string="Confirm"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+
+                    <button name="action_start_preparing"
+                            type="object"
+                            string="Start Preparing"
+                            class="btn-primary"
+                            invisible="state != 'confirmed'"/>
+
+                    <button name="action_mark_ready"
+                            type="object"
+                            string="Mark Ready"
+                            class="btn-primary"
+                            invisible="state != 'preparing'"/>
+
+                    <button name="action_serve"
+                            type="object"
+                            string="Serve / Complete"
+                            class="btn-primary"
+                            invisible="state != 'ready'"/>
+
+                    <button name="action_cancel"
+                            type="object"
+                            string="Cancel Order"
+                            invisible="state == 'cancelled'"/>
+
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,confirmed,preparing,ready,served"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="order_type"/>
+                            <field name="date_order"/>
+                            <field name="user_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="table_id"
+                                   invisible="order_type != 'dine_in'"/>
+                            <field name="partner_shipping_id"
+                                   invisible="order_type != 'delivery'"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Order Lines">
+                            <field name="order_line_ids"
+                                   readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="menu_item_id"/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit"/>
+                                    <field name="discount"/>
+                                    <field name="price_subtotal" readonly="1"/>
+                                    <field name="currency_id" column_invisible="True"/>
+                                </list>
+                            </field>
+
+                            <group>
+                                <field name="amount_untaxed" readonly="1"/>
+                                <field name="amount_total" readonly="1"/>
+                                <field name="amount_paid" readonly="1"/>
+                                <field name="amount_due" readonly="1"/>
+                            </group>
+                        </page>
+
+                        <page string="Payments">
+                            <field name="payment_ids" readonly="1">
+                                <list>
+                                    <field name="date"/>
+                                    <field name="payment_method"/>
+                                    <field name="amount"/>
+                                    <field name="reference"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+
+                        <page string="Inventory Transfers">
+                            <field name="picking_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="origin"/>
+                                    <field name="scheduled_date"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="restaurant_order_action" model="ir.actions.act_window">
+        <field name="name">Restaurant Orders</field>
+        <field name="res_model">restaurant.order</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,17 @@
+<odoo>
+    <record id="sequence_restaurant_order" model="ir.sequence">
+        <field name="name">Restaurant Order</field>
+        <field name="code">restaurant.order</field>
+        <field name="prefix">RO/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+    <record id="sequence_restaurant_reservation" model="ir.sequence">
+        <field name="name">Restaurant Reservation</field>
+        <field name="code">restaurant.reservation</field>
+        <field name="prefix">RR/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+</odoo>

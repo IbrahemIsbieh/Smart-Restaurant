@@ -1,0 +1,93 @@
+<odoo>
+    <menuitem
+        id="restaurant_menu_root"
+        name="Smart Restaurant"
+        sequence="10"
+        groups="smart_restaurant.group_restaurant_manager,smart_restaurant.group_restaurant_cashier,smart_restaurant.group_restaurant_kitchen"
+    />
+
+    <menuitem
+        id="restaurant_menu_orders"
+        name="Orders"
+        parent="restaurant_menu_root"
+        action="restaurant_order_action"
+        sequence="10"
+        groups="smart_restaurant.group_restaurant_manager,smart_restaurant.group_restaurant_cashier,smart_restaurant.group_restaurant_kitchen"
+    />
+
+    <menuitem
+        id="restaurant_menu_items"
+        name="Menu Items"
+        parent="restaurant_menu_root"
+        action="restaurant_menu_item_action"
+        sequence="20"
+        groups="smart_restaurant.group_restaurant_manager,smart_restaurant.group_restaurant_cashier,smart_restaurant.group_restaurant_kitchen"
+    />
+
+    <menuitem
+        id="restaurant_menu_payments"
+        name="Payments"
+        parent="restaurant_menu_root"
+        action="restaurant_payment_action"
+        sequence="30"
+        groups="smart_restaurant.group_restaurant_manager,smart_restaurant.group_restaurant_cashier"
+    />
+
+    <menuitem
+        id="restaurant_menu_reservations"
+        name="Reservations"
+        parent="restaurant_menu_root"
+        action="restaurant_reservation_action"
+        sequence="40"
+        groups="smart_restaurant.group_restaurant_manager,smart_restaurant.group_restaurant_cashier"
+    />
+
+    <menuitem
+        id="restaurant_menu_reports"
+        name="Reports"
+        parent="restaurant_menu_root"
+        sequence="50"
+        groups="smart_restaurant.group_restaurant_manager,smart_restaurant.group_restaurant_cashier"
+    />
+
+    <menuitem
+        id="restaurant_menu_orders_report"
+        name="Orders by Period"
+        parent="restaurant_menu_reports"
+        action="restaurant_order_report_wizard_action"
+        sequence="10"
+        groups="smart_restaurant.group_restaurant_manager,smart_restaurant.group_restaurant_cashier"
+    />
+
+    <menuitem
+        id="restaurant_menu_configuration"
+        name="Configuration"
+        parent="restaurant_menu_root"
+        sequence="90"
+        groups="smart_restaurant.group_restaurant_manager"
+    />
+
+    <menuitem
+        id="restaurant_category_menu"
+        name="Categories"
+        parent="restaurant_menu_configuration"
+        action="restaurant_category_action"
+        sequence="10"
+    />
+
+    <menuitem
+        id="restaurant_table_menu"
+        name="Tables"
+        parent="restaurant_menu_configuration"
+        action="restaurant_table_action"
+        sequence="20"
+    />
+
+    <menuitem
+        id="restaurant_recipe_menu"
+        name="Recipes"
+        parent="restaurant_menu_configuration"
+        action="restaurant_recipe_line_action"
+        sequence="30"
+    />
+</odoo>
